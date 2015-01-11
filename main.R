@@ -47,8 +47,9 @@ intPlace <- gIntersection(placesRD, indBuf, byid=T)
 coord <- coordinates(intPlace)
 
 # Match the coordinates of the intersected point with its corresponding point in the places dataset, and store the row position. 
+position <- NA
 for(i in 1:nrow(placesRD)){
-     if((as.integer(placesRD@coords[i, 1]) == coord[1]) & (as.integer(placesRD@coords[i, 2]) == coord[2])) position <- i
+     if((as.integer(placesRD@coords[i, 1]) == as.integer(coord[1])) & (as.integer(placesRD@coords[i, 2]) == as.integer(coord[2]))) position <- i
 }
 
 # Extract the relevant data from places and store in spatial points data frame.
