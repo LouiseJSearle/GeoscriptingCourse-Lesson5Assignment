@@ -1,5 +1,6 @@
 ## Louise Searle
 ## January 10 2015
+## Team Jennifer
 
 ## Load packages.
 library(downloader)
@@ -8,6 +9,8 @@ library(rgdal)
 library(rgeos)
 
 ## Load required data.
+
+# Create directory to store data.
 dir.create('data/', showWarnings = FALSE)
 
 # Download data.
@@ -25,6 +28,8 @@ placefile <- list.files('data/places/', pattern=glob2rx('*.shp*'), full.names=T)
 # Load data. 
 railways <- readOGR(railfile, layer=ogrListLayers(railfile))
 places <- readOGR(placefile, layer=ogrListLayers(placefile))
+
+## Spatial analysis.
 
 # Selects the industrial type railways.
 ind <- railways[railways$type == "industrial",]
@@ -49,6 +54,8 @@ for(i in 1:nrow(placesRD)){
 # Extract the relevant data from places and store in spatial points data frame.
 citydata <- data.frame(Name = placesRD$name[position], Population = placesRD$population[position])
 cityspdata <- SpatialPointsDataFrame(coords = coord, citydata, proj4string=projRD, match.ID=F)
+
+## Plot results.
 
 # Create a plot that shows the buffer, the points, and the name of the city.
 plot(indBuf, lty=2, lwd=1.5, col='snow2', axes=T)
